@@ -121,9 +121,6 @@ testRunner.And("I press click Add button to add skill", ((string)(null)), ((Tech
 #line 13
 testRunner.Then("I should be able add and view new skills to my profile", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
 #line hidden
-#line 14
-testRunner.Then("I should be able to delete skills added", ((string)(null)), ((TechTalk.SpecFlow.Table)(null)), "Then ");
-#line hidden
             }
             this.ScenarioCleanup();
         }

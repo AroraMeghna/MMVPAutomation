@@ -11,4 +11,3 @@ And I Add skills as 'Test Analyst1'
 And I select skill level 'Beginner'
 And I press click Add button to add skill
 Then I should be able add and view new skills to my profile
-Then I should be able to delete skills added
