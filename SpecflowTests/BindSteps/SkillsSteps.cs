@@ -5,6 +5,7 @@ using OpenQA.Selenium.Support.UI;
 using TechTalk.SpecFlow;
 using MMVPAutomation.SpecflowPages.Pages;
 using MMVPAutomation.SpecflowPages.Helpers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MMVPAutomation.SpecflowTests.BindSteps
 {
@@ -61,17 +62,15 @@ namespace MMVPAutomation.SpecflowTests.BindSteps
             //Going to skills page
             Driver.driver.FindElement(By.XPath("//A[@data-tab='second'][text()='Skills']")).Click();
 
-            Thread.Sleep(5000);
+            // Assert to verify that the "Test Analyst1" skills is added and is visible
+            IWebElement element = Driver.driver.FindElement(By.XPath("//td[text()='Test Analyst1']"));            
+            //IWebElement element = Driver.driver.FindElement(By.XPath("//td[text()='Test Analyst1'] or [text()='Selenium Web']"));
+            Assert.IsTrue(element.Text.Equals("Test Analyst1"));                       
             Driver.TurnOnWait();
+
             // Screenshot
             Screenshot ss = ((ITakesScreenshot)Driver.driver).GetScreenshot();
-            ss.SaveAsFile("C:\\Users\\Meghna\\source\\repos\\MMVPAutomation\\TestReports\\skillsAdded_" + DateTime.Now.ToString(("_dd-mm-yyyy_mss")) + ".jpeg");
-        }
-        
-        [Then(@"I should be able to delete skills added")]
-        public void ThenIShouldBeAbleToDeleteSkillsAdded()
-        {
-            //ScenarioContext.Current.Pending();
+            ss.SaveAsFile("C:\\Users\\Meghna\\source\\repos\\MMVPAutomation\\TestReports\\skillsAdded_" + DateTime.Now.ToString(("_dd-mm-yyyy_HHmmss")) + ".jpeg");
         }
     }
 }

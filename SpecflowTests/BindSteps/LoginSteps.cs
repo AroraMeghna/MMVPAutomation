@@ -2,6 +2,7 @@
 using TechTalk.SpecFlow;
 using MMVPAutomation.SpecflowPages.Helpers;
 using OpenQA.Selenium;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MMVPAutomation.SpecflowTests.BindSteps
 {
@@ -46,10 +47,13 @@ namespace MMVPAutomation.SpecflowTests.BindSteps
         [Then(@"I am taken to the profile page")]
         public void ThenIAmTakenToTheProfilePage()
         {
-            Driver.TurnOnWait();            
+            Driver.TurnOnWait();
+            // Assert to verify that the sign out button is visible
+            IWebElement element = Driver.driver.FindElement(By.XPath("//button[@class='ui green basic button'][text()='Sign Out']"));
+            Assert.IsTrue(element.Text.Equals("Sign Out"));            
             // Screenshot
             Screenshot ss = ((ITakesScreenshot)Driver.driver).GetScreenshot();
-            ss.SaveAsFile("C:\\Users\\Meghna\\source\\repos\\MMVPAutomation\\TestReports\\login_"+ DateTime.Now.ToString(("_dd-mm-yyyy_mss")) + ".jpeg");
+            ss.SaveAsFile("C:\\Users\\Meghna\\source\\repos\\MMVPAutomation\\TestReports\\login_"+ DateTime.Now.ToString(("_dd-mm-yyyy_HHmmss")) + ".jpeg");
             
             //Close the browser
             //Driver.driver.Close();

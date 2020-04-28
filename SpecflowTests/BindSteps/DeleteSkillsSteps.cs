@@ -4,6 +4,7 @@ using System.Threading;
 using TechTalk.SpecFlow;
 using MMVPAutomation.SpecflowPages.Pages;
 using MMVPAutomation.SpecflowPages.Helpers;
+using Microsoft.VisualStudio.TestTools.UnitTesting;
 
 namespace MMVPAutomation.SpecflowTests.BindSteps
 {
@@ -18,8 +19,17 @@ namespace MMVPAutomation.SpecflowTests.BindSteps
 
             //Go to skills tab
             Driver.driver.FindElement(By.XPath("//A[@data-tab='second'][text()='Skills']")).Click();
+            Thread.Sleep(10000);
+
+            // Assert to verify that the "Test Analyst1" skills is added and is visible
+            IWebElement element = Driver.driver.FindElement(By.XPath("//td[text()='Test Analyst1']"));
+            Assert.IsTrue(element.Text.Equals("Test Analyst1"));
+
+            // Screenshot
+            Screenshot ss = ((ITakesScreenshot)Driver.driver).GetScreenshot();
+            ss.SaveAsFile("C:\\Users\\Meghna\\source\\repos\\MMVPAutomation\\TestReports\\skillsBeforeDeleted_" + DateTime.Now.ToString(("_dd-mm-yyyy_HHmmss")) + ".jpeg");
         }
-        
+
         [When(@"I click on delete skills icon")]
         public void WhenIClickOnDeleteSkillsIcon()
         {
@@ -42,13 +52,15 @@ namespace MMVPAutomation.SpecflowTests.BindSteps
         {
             //Going to skills page for verification
             Driver.driver.FindElement(By.XPath("//A[@data-tab='second'][text()='Skills']")).Click();
-            Thread.Sleep(5000);
             Driver.TurnOnWait();
-            
 
+            // Assert to verify that the "Test Analyst1" skills is deleted and is not visible
+            IWebElement element = Driver.driver.FindElement(By.XPath("//td[text()!='Test Analyst1']"));
+            //Assert.IsTrue(element.Text.Equals("Test Analyst1"));
+            Assert.IsFalse(element.Text.Equals("Test Analyst1"));
             // Screenshot
             Screenshot ss = ((ITakesScreenshot)Driver.driver).GetScreenshot();
-            ss.SaveAsFile("C:\\Users\\Meghna\\source\\repos\\MMVPAutomation\\TestReports\\skillsDeleted_" + DateTime.Now.ToString(("_dd-mm-yyyy_mss")) + ".jpeg");
+            ss.SaveAsFile("C:\\Users\\Meghna\\source\\repos\\MMVPAutomation\\TestReports\\skillsDeleted_" + DateTime.Now.ToString(("_dd-mm-yyyy_HHmmss")) + ".jpeg");
         }
     }
 }
